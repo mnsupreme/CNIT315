@@ -12,6 +12,8 @@ This is our CNIT 315 project. To get started:
 10. **Make sure you also have to press 'publish' at the black bar to publish your changes to the cloud!!!**
 
 # Game Plan
+* We are programming Conway's game of Life 
+* links: https://www.youtube.com/watch?v=ouipbDkwHWA   https://gamedevelopment.tutsplus.com/tutorials/creating-life-conways-game-of-life--gamedev-558
 * The software will contain a modified linked list to represent a grid. 
 ```c
 struct superLinkedList{
