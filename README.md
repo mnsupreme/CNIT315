@@ -14,26 +14,23 @@ This is our CNIT 315 project. To get started:
 # Game Plan
 * We are programming Conway's game of Life 
 * links: https://www.youtube.com/watch?v=ouipbDkwHWA   https://gamedevelopment.tutsplus.com/tutorials/creating-life-conways-game-of-life--gamedev-558
-* The software will contain a modified linked list to represent a grid. 
+* The software will contain a multi dimensional array / Matrix to represent a grid. 
 ```c
-struct superLinkedList{
-    struct Node *head;
-} 
-
- struct Node{
-     struct Node *left;
-     struct Node *right;
-     struct Node *top;
-     struct Node *bottom;
-     struct Node *top_left;
-     struct Node *bottom_left;
-     struct Node *top_right;
-     struct Node *bottom_right;
-     int checked
-     int data
-} 
+     int grid[10][10] = {
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,0,0}
+     }
 ```
 * We are using a random number generator for our api https://www.random.org/clients/http/
+* We will store random number from the api into a linked list
 * The random number generator will generate random starting positions
 # Divison of Labor
 The following positions are available but can change at any time
