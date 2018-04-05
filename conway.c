@@ -26,10 +26,14 @@ void conway(int *prevmatrix[10][10], int *curmatrix[10][10]){
 	int bottom-left;
 	int bottom-right;
 	int rows = sizeof(*prevmatrix)/sizeof(*prevmatrix[0]);
-	int columns = sizeof(*prevmatrix)/sizeof(*prevmatrix[0][0]);
+	int columns = sizeof(*prevmatrix[0])/sizeof(*prevmatrix[0][0]);
 	int i;
 	int j;
-	
+	for(i=0;i<row;i++){
+		for(j=0;j<row;j++){
+			
+		}
+	}
 }
 
 void run(int *prevmatrix[10][10], int *curmatrix[10][10],int numItters){
