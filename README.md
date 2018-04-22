@@ -34,8 +34,8 @@ This is our CNIT 315 project. To get started:
 * The random number generator will generate random starting positions
 # Divison of Labor
 The following positions are available but can change at any time
-* api work: making a GET request to the api (easy)
-* technical writing: writing all the papers and reports (easy)
-* performance measuring: generating graphs about our software's performance (medium)
-* backend logic: writing the logic for the program (hard)
-* displaying: displaying the results from the backend (hard)
+* api work: making a GET request to the api (easy) - 
+* technical writing: writing all the papers and reports (easy) - Rahul Kumar, Lakysha Garg
+* performance measuring: generating graphs about our software's performance (medium) - Jacob Carlson
+* backend logic: writing the logic for the program (hard) - Mitchell Lee
+* displaying: displaying the results from the backend (hard) - 

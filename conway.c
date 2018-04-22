@@ -23,7 +23,7 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 	int right = 1;
 	int bottom = -1;
 	int top = 1;
-	int rows = sizeof(prevmatrix)/sizeof(prevmatrix[0]);
+	int rows = sizeof(*prevmatrix)/sizeof(*prevmatrix[0]);
 	int columns = sizeof(prevmatrix[0])/sizeof(prevmatrix[0][0]);
 	int i;
 	int j;
@@ -55,7 +55,6 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 					right = 1;
 					break;
 			}
-
 			if(prevmatrix[i+top][j] == 1){
 				neighbors_alive +=1;
 			}
@@ -84,26 +83,25 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 					curmatrix[i][j] =1;
 				}
 			}
-
-			left = -1;
-			right = 1;
+			
 			bottom = -1;
 			top = 1;
 			neighbors_alive = 0;
 		}
+		left = -1;
+		right = 1;
 	}
-
+	return;
 }
 
 void printMatrix(int matrix[10][10]){
-	int rows = sizeof(matrix)/sizeof(matrix[0]);
+	int rows = sizeof(*matrix)/sizeof(*matrix[0]);
 	int columns = sizeof(matrix[0])/sizeof(matrix[0][0]);
 	int i;
 	int j;
 	for(i=0;i<rows;i++){
-		printf("activated");
 		for(j=0;j<columns;j++){
-			printf("%d\n",matrix[i][j] );
+
 			if(matrix[i][j] == 0){
 				printf(".");
 			}else{
@@ -112,23 +110,26 @@ void printMatrix(int matrix[10][10]){
 		}
 		printf("\n");
 	}
+
 }
 
 void run(int prevmatrix[10][10], int curmatrix[10][10],int numItters){
 	int i;
 	for(i=0;i<numItters;i++){
-		prevmatrix = curmatrix;
 		conway(prevmatrix,curmatrix);
+		prevmatrix = curmatrix;
 		printMatrix(curmatrix);
+		printf("\n");
 	} 
+	return;
 
 }
 
 int main(){
 
 int prevmatrix[10][10] = {
-	{1,0,0,0,0,0,0,0,0,0},
-	{0,1,1,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,1,1},
+	{0,1,1,0,0,0,0,0,1,1},
 	{1,1,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
@@ -151,6 +152,10 @@ int curmatrix[10][10] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0}
 };
+
+printf("rows %i\n",sizeof(prevmatrix)/sizeof(prevmatrix[0]));
+printf("columns %i\n",sizeof(curmatrix[0])/sizeof(curmatrix[0][0]));
+	
 run(prevmatrix,curmatrix,10);
 
 
