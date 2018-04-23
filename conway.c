@@ -33,21 +33,24 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 			switch(i){
 				case 0:
 					top = 0;
+					bottom = 1;
 					break;
-				case 10:
+				case 9:
+					top=1;
 					bottom = 0;
 					break;
 				default:
-					bottom = -1;
-					top = 1;
+					top = -1;
+					bottom = 1;
 					break;
 			}
 
 			switch(j){
 				case 0:
 					left = 0;
+					right = 1;
 					break;
-				case 10:
+				case 9:
 					right = 0;
 					break;
 				default:
@@ -55,26 +58,49 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 					right = 1;
 					break;
 			}
-			if(prevmatrix[i+top][j] == 1){
-				neighbors_alive +=1;
+			
+			if(top != 0){
+				if(prevmatrix[i+top][j] == 1){
+					neighbors_alive +=1;
+				}
 			}
-			if(prevmatrix[i+top][j+right] == 1){
-				neighbors_alive +=1;
+			if(top !=0 && right != 0){
+				if(prevmatrix[i+top][j+right] == 1){
+					neighbors_alive +=1;
+				}
 			}
-			if(prevmatrix[i+top][j+left] == 1){
-				neighbors_alive +=1;
+			if(top !=0 && left !=0){
+				if(prevmatrix[i+top][j+left] == 1){
+					neighbors_alive +=1;
+				}
 			}
-			if(prevmatrix[i+bottom][j] == 1){
-				neighbors_alive +=1;
+			if(bottom != 0){
+				if(prevmatrix[i+bottom][j] == 1){
+					neighbors_alive +=1;
+				}
 			}
-			if(prevmatrix[i+bottom][j+right] == 1){
-				neighbors_alive +=1;
+			if(bottom != 0 && right != 0){
+				if(prevmatrix[i+bottom][j+right] == 1){
+					neighbors_alive +=1;
+				}
 			}
-			if(prevmatrix[i+bottom][j+left] == 1){
-				neighbors_alive +=1;
+			if(bottom != 0 && left != 0){
+				if(prevmatrix[i+bottom][j+left] == 1){
+					neighbors_alive +=1;
+				}
+			}
+			if(left != 0){
+				if(prevmatrix[i][j+left] == 1){
+					neighbors_alive += 1;
+				}
+			}
+			if(right != 0){
+				if(prevmatrix[i][j+right] == 1){
+					neighbors_alive += 1;
+				}
 			}
 
-			if(prevmatrix[i][j] == 1){
+			if(curmatrix[i][j] == 1){
 				if(neighbors_alive < 2 || neighbors_alive > 3){
 					curmatrix[i][j] = 0;
 				}
@@ -83,13 +109,12 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 					curmatrix[i][j] =1;
 				}
 			}
-			
-			bottom = -1;
-			top = 1;
+			left = -1;
+			right = 1;
 			neighbors_alive = 0;
 		}
-		left = -1;
-		right = 1;
+		top = -1;
+		bottom = 1;
 	}
 	return;
 }
@@ -113,17 +138,31 @@ void printMatrix(int matrix[10][10]){
 
 }
 
+void setArray(int prevmatrix[10][10], int curmatrix[10][10]){
+	int rows = sizeof(*prevmatrix)/sizeof(*prevmatrix[0]);
+	int columns = sizeof(prevmatrix[0])/sizeof(prevmatrix[0][0]);
+	int i;
+	int j;
+	for(i=0;i<rows;i++){
+		for(j=0;j<columns;j++){
+			prevmatrix[i][j] = curmatrix[i][j];
+		}
+	}
+}
+
 void run(int prevmatrix[10][10], int curmatrix[10][10],int numItters){
 	int i;
 	for(i=0;i<numItters;i++){
 		conway(prevmatrix,curmatrix);
-		prevmatrix = curmatrix;
+		setArray(prevmatrix,curmatrix);
 		printMatrix(curmatrix);
 		printf("\n");
 	} 
 	return;
 
 }
+
+
 
 int main(){
 
@@ -141,9 +180,9 @@ int prevmatrix[10][10] = {
 };
 
 int curmatrix[10][10] = {
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,1,1},
+	{0,1,1,0,0,0,0,0,1,1},
+	{1,1,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
@@ -153,9 +192,7 @@ int curmatrix[10][10] = {
 	{0,0,0,0,0,0,0,0,0,0}
 };
 
-printf("rows %i\n",sizeof(prevmatrix)/sizeof(prevmatrix[0]));
-printf("columns %i\n",sizeof(curmatrix[0])/sizeof(curmatrix[0][0]));
-	
+
 run(prevmatrix,curmatrix,10);
 
 
