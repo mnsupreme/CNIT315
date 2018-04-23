@@ -51,6 +51,7 @@ void conway(int prevmatrix[10][10], int curmatrix[10][10]){
 					right = 1;
 					break;
 				case 9:
+					left = -1;
 					right = 0;
 					break;
 				default:
