@@ -335,6 +335,9 @@ while(exit != 1){
 				printf("You must select between 30-99 random starting positions.\n\n");
 			}
 		}
+		/* 
+		Start timer here
+		*/
 
 		positions = positions * 2;
 		snprintf(stringIterations,3,"%i",positions);
@@ -372,6 +375,12 @@ while(exit != 1){
 		iterations = 0;
 		exit = 0;
 		positions = 0;
+
+		/*
+		END TIMER HERE
+		*/
+
+
   		printf("Finished! Press any key to continue or 0 to exit!\n");
   		scanf("%i",&selection);
   		if(selection == 0){
