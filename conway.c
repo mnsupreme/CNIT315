@@ -48,7 +48,6 @@ void FreeAll(struct List *list){
 void traverseList(struct List *list){
 	struct Node *node = list->head;
 	while(node->next != NULL){
-		printf("x:%i  y:%i\n",node->x,node->y);
 		node = node->next;
 	}
 }
@@ -74,7 +73,6 @@ static size_t addDataCallback(void *newData, size_t size, size_t nmemb, void *bu
 void parseHTTPOutput(char *string, struct List *list){
 	char currentNumber;
 	char *trash;
-	char newline = '\n';
 	char end = '\0';
 	int i = 0;
 	int flag = 0;
@@ -272,9 +270,9 @@ int selection = 3;
 int iterations = 0;
 int exit = 0;
 int positions = 0;
-char stringIterations[2];
+char stringIterations[3];
 struct List *list = CreateList();
-char radom[] = "https://www.random.org/integers/?num=50&min=0&col=1&base=10&format=plain&rnd=new&max=";
+
 
 int prevmatrix[10][10] = {
 	{0,0,0,0,0,0,0,0,0,0},
@@ -302,41 +300,47 @@ int curmatrix[10][10] = {
 	{0,0,0,0,0,0,0,0,0,0}
 };
 
-while(exit != 0){
-	while(selection != 0 || selection != 1){
+while(exit != 1){
+	
+	char url[88] = "https://www.random.org/integers/?num=50&min=0&col=1&base=10&format=plain&rnd=new&max=";
+	CURL *curl;
+  	CURLcode response;
+  	struct httpOutput output;
+  	output.allData = (char *)malloc(sizeof(char));  
+  	output.size = 0;
+
+
+	while(selection != 0 && selection != 1){
 		printf("WELCOME TO CONWAY'S GAME OF LIFE!\n\n");
 		printf("please make a selection:\n");
 		printf("1: play\n");
 		printf("0: exit\n");
-		scanf("%i\n",&selection);
-		if(selection != 0 || selection != 1){
+		scanf("%i",&selection);
+		if(selection != 0 && selection != 1){
 			printf("Invalid selection. Please try again\n\n");
 		}
 	}
 	if(selection == 1){
 		while(iterations<= 0){
 			printf("please enter the number of iterations you would like to run the game for:\n\n");
-			scanf("%i\n",&iterations);
+			scanf("%i",&iterations);
 			if(iterations <= 0){
 				printf("Number of iterations must be greater than 0.\n\n");
 			}
 		}
-		while(positions < 30 || positions >99){
-			printf("please enter the number of random starting positions you would like to have please enter a number between (30-99):\n\n");
-			scanf("%i\n", positions)
-			if(positions<30 || positions>99){
+		while(positions < 30 || positions > 99){
+			printf("please enter the number of random starting positions you would like to have. Please enter a number between (30-99):\n\n");
+			scanf("%i", &positions);
+			if(positions < 30 || positions > 99){
 				printf("You must select between 30-99 random starting positions.\n\n");
 			}
 		}
 
 		positions = positions * 2;
+		snprintf(stringIterations,3,"%i",positions);
+		strcat(url,stringIterations);
 
-
-		CURL *curl;
-  		CURLcode response;
-  		struct httpOutput output;
-  		output.allData = (char *)malloc(sizeof(char));  
-  		output.size = 0;    
+    
   		curl_global_init(CURL_GLOBAL_ALL);
   		curl = curl_easy_init();
   		curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -353,6 +357,8 @@ while(exit != 0){
   		parseHTTPOutput(output.allData,list);
   		traverseList(list);
   		initializeWithRandomPositions(prevmatrix,curmatrix,list);
+  		printMatrix(curmatrix);
+  		printf("\n");
   		run(prevmatrix,curmatrix,iterations);
 
  		}
@@ -363,7 +369,18 @@ while(exit != 0){
   		curl_global_cleanup();
   		FreeAll(list);
   		list->head = NULL;
-	}else{
+		iterations = 0;
+		exit = 0;
+		positions = 0;
+  		printf("Finished! Press any key to continue or 0 to exit!\n");
+  		scanf("%i",&selection);
+  		if(selection == 0){
+  			printf("Goodbye!\n\n");
+  			exit = 1;
+  		}
+  		selection = 3;
+	}else
+	{
 		printf("Goodbye!\n\n");
 		exit = 1;
 	}
